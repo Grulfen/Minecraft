@@ -654,6 +654,21 @@ class Window(pyglet.window.Window):
                     break
         return tuple(p)
 
+    def player_collide(self, position):
+        """ Checks to see if the block at the given `position`
+        is the block above the one the player is standing on
+
+        Parameters
+        ----------
+        position : tuple of len 3
+            The (x, y, z) position of the block
+
+        Returns
+        -------
+        True if coliision and False otherwise
+        """
+        return normalize(self.position) == (position[0], position[1] + 1, position[2])
+
     def on_mouse_press(self, x, y, button, modifiers):
         """ Called when a mouse button is pressed. See pyglet docs for button
         amd modifier mappings.
@@ -677,7 +692,7 @@ class Window(pyglet.window.Window):
             if (button == mouse.RIGHT) or \
                     ((button == mouse.LEFT) and (modifiers & key.MOD_CTRL)):
                 # ON OSX, control + left click = right click.
-                if previous:
+                if previous and not self.player_collide(previous):
                     self.model.add_block(previous, self.block)
             elif button == pyglet.window.mouse.LEFT and block:
                 texture = self.model.world[block]
