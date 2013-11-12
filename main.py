@@ -73,9 +73,10 @@ def tex_coords(top, bottom, side):
     return result
 
 
-TEXTURE_PATH = 'texture.png'
+TEXTURE_PATH = 'res/texture.png'
 
 GRASS = tex_coords((1, 0), (0, 1), (0, 0))
+GRASS_INV = tex_coords((0, 3), (1, 2), (0, 2))
 SAND = tex_coords((1, 1), (1, 1), (1, 1))
 BRICK = tex_coords((2, 0), (2, 0), (2, 0))
 STONE = tex_coords((2, 1), (2, 1), (2, 1))
@@ -471,7 +472,7 @@ class Window(pyglet.window.Window):
         self.dy = 0
 
         # A list of blocks the player can place. Hit num keys to cycle.
-        self.inventory = [BRICK, GRASS, SAND]
+        self.inventory = [BRICK, GRASS, SAND, GRASS_INV]
 
         # The current block the user can place. Hit num keys to cycle.
         self.block = self.inventory[0]
